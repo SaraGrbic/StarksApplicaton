@@ -1,0 +1,49 @@
+﻿@model IEnumerable<Starks_application.Course>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Courses</h2>
+<div id="DeleteCours"></div>
+<div id="EditCours"></div>
+<div id="DetailsCours"></div>
+<div id="CreateCours">
+    <p>
+        @Ajax.ActionLink("Create new", "Create", new AjaxOptions() { HttpMethod = "Get", UpdateTargetId = "CreateCours", InsertionMode = InsertionMode.Replace })
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.CourseId }, new AjaxOptions() {HttpMethod="Get", UpdateTargetId="EditCours", InsertionMode=InsertionMode.Replace }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.CourseId }, new AjaxOptions() {HttpMethod="Get", UpdateTargetId="DetailsCours", InsertionMode=InsertionMode.Replace }) |
+                    @Ajax.ActionLink("Delete", "Delete", new { id=item.CourseId}, new AjaxOptions() {HttpMethod="Get",UpdateTargetId="DeleteCours", InsertionMode= InsertionMode.Replace })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+@section scripts{
+
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+}
